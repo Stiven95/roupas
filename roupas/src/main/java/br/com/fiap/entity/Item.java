@@ -1,6 +1,7 @@
 package br.com.fiap.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,16 +12,17 @@ import javax.persistence.ManyToOne;
 public class Item {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long idItem;
 	
-	@ManyToOne @JoinColumn(name="idProduto")
-	private Produto produto;
+	@ManyToOne @JoinColumn(name="idProduct")
+	private Product product;
 	
-	@ManyToOne @JoinColumn(name="idPedido")
-	private Pedido pedido;
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="idOrder")
+	private Order order;
 	
-	private double preco;
+	private double price;
 	
 	private int qtd;
 	
@@ -28,45 +30,53 @@ public class Item {
 		super();
 	}
 
-	public Item(Integer id, Produto produto, Pedido pedido, double preco, int qtd) {
+	public Item(Product product, Order order, double price, int qtd) {
 		super();
-		this.id = id;
-		this.produto = produto;
-		this.pedido = pedido;
-		this.preco = preco;
+		this.product = product;
+		this.order = order;
+		this.price = price;
 		this.qtd = qtd;
 	}
 
-	public Integer getId() {
-		return id;
+	public Item(long idItem, Product product, Order order, double price, int qtd) {
+		super();
+		this.idItem = idItem;
+		this.product = product;
+		this.order = order;
+		this.price = price;
+		this.qtd = qtd;
+	}
+	
+	public long getIdItem() {
+		return idItem;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setIdItem(long idItem) {
+		this.idItem = idItem;
 	}
 
-	public Produto getProduto() {
-		return produto;
+	public Product getProduct() {
+		return product;
 	}
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
-	public Pedido getPedido() {
-		return pedido;
+	public Order getOrder() {
+		return order;
 	}
 
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 
-	public double getPreco() {
-		return preco;
+	public double getPrice() {
+		return price;
 	}
 
-	public void setPreco(double preco) {
-		this.preco = preco;
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
 	public int getQtd() {
@@ -75,7 +85,5 @@ public class Item {
 
 	public void setQtd(int qtd) {
 		this.qtd = qtd;
-	}
-	
-	
+	}	
 }

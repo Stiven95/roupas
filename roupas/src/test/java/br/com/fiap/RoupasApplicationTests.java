@@ -1,4 +1,4 @@
-package br.com.fiap.roupas;
+package br.com.fiap;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
