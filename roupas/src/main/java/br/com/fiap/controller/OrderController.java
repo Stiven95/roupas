@@ -40,7 +40,7 @@ public class OrderController {
 	
 	@PostMapping(path = "/createOrder")
 	public void create(Order order) {
-		orderService.createOrder(order);
+		orderService.newOrder(order);
 	}
 	
 	@GetMapping(path = "/mockOrder")
@@ -49,7 +49,7 @@ public class OrderController {
 	}
 	
 	public Order findById(long id) {
-		return orderService.findById(id);
+		return orderService.findOrderById(id);
 	}
 	
 	public List<Order> listOrdersByMonthAndYear(YearMonth yearMonth){

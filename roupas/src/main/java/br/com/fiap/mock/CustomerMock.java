@@ -15,7 +15,7 @@ public class CustomerMock {
 
 		try {
 
-			for (int i = 0; i < 1000; i++) {
+			for (int i = 0; i < 100; i++) {
 				Customer customer = new Customer();
 				customer.setName(name[ran(9)] + " " + middlename[ran(9)] + " " + lastname[ran(9)]);
 				customer.setCpfCnpj(cpf());

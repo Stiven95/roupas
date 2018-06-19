@@ -19,31 +19,4 @@ import br.com.fiap.repository.ItemRepository;
 @DataJpaTest
 public class TesteItemRepository {
 
-	@Autowired
-	private TestEntityManager entityManager;
-	
-	@Autowired
-	private ItemRepository itemRepository;
-	
-	@Test
-	public void crudItem() {
-		Product product = new Product("ABC", 10.0);
-		Item item = new Item(product, new Order(), 10.0, 1);
-		
-		Assert.assertTrue(((List<Item>) itemRepository.findAll()).isEmpty());
-		
-		itemRepository.save(item);
-		List<Item> itens = (List<Item>) itemRepository.findAll();
-		Assert.assertFalse(itens.isEmpty());
-		Assert.assertEquals(1, itens.size());
-		
-		item.setPrice(50.0);
-		entityManager.merge(item);
-		Item itemR = itemRepository.findById(1L);
-		Assert.assertEquals("Evair Sousa", itemR.getPrice());
-		
-		itemRepository.delete(item);
-		List<Item> deletados = (List<Item>) itemRepository.findAll();
-		Assert.assertTrue(deletados.isEmpty());
-	}
 }

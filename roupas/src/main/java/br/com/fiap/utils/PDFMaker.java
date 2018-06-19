@@ -49,7 +49,7 @@ public class PDFMaker {
 				Document document = new Document();
 
 				try {
-					String fileName = "c:\\cupons\\invoice_" + order.getIdOrder() + ".pdf";
+					String fileName = "c:\\cupons\\invoice_" + order.getIdorder() + ".pdf";
 					@SuppressWarnings("unused")
 					PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(fileName));
 					document.open();
@@ -75,7 +75,7 @@ public class PDFMaker {
 					document.add(new Paragraph(" "));
 
 					PdfPTable table = new PdfPTable(4);
-					PdfPCell cell = new PdfPCell(new Phrase(order.getData().format(formatters)));
+					PdfPCell cell = new PdfPCell(new Phrase(order.getOrderdate().format(formatters)));
 					cell.setBorderColor(BaseColor.WHITE);
 					table.addCell(cell);
 					cell = new PdfPCell(new Phrase("10:01:01"));
@@ -84,7 +84,7 @@ public class PDFMaker {
 					cell = new PdfPCell(new Phrase("CCF: 010333"));
 					cell.setBorderColor(BaseColor.WHITE);
 					table.addCell(cell);
-					cell = new PdfPCell(new Phrase("COO: " + order.getIdOrder()));
+					cell = new PdfPCell(new Phrase("COO: " + order.getIdorder()));
 					cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 					cell.setBorderColor(BaseColor.WHITE);
 					table.addCell(cell);
@@ -223,7 +223,7 @@ public class PDFMaker {
 
 					// HASH
 					document.add(new Paragraph(" "));
-					String chv = order.getIdOrder() + order.getCustomer().getIdCustomer() + granTotal + "";
+					String chv = order.getIdorder() + order.getCustomer().getIdCustomer() + granTotal + "";
 					String hsh = GenerateHash.generate(chv);
 					document.add(new Paragraph(formatHash(hsh)));
 

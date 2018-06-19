@@ -1,5 +1,7 @@
 package br.com.fiap.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -9,19 +11,22 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Item {
+public class Item implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long idItem;
-	
-	@ManyToOne @JoinColumn(name="idProduct")
-	private Product product;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idOrder")
 	private Order order;
 	
+	@ManyToOne
+	@JoinColumn(name="idProduct")
+	private Product product;
+		
 	private double price;
 	
 	private int qtd;
@@ -30,23 +35,15 @@ public class Item {
 		super();
 	}
 
-	public Item(Product product, Order order, double price, int qtd) {
+	public Item(long idItem, Order order, Product product, double price, int qtd) {
 		super();
-		this.product = product;
+		this.idItem = idItem;
 		this.order = order;
+		this.product = product;
 		this.price = price;
 		this.qtd = qtd;
 	}
 
-	public Item(long idItem, Product product, Order order, double price, int qtd) {
-		super();
-		this.idItem = idItem;
-		this.product = product;
-		this.order = order;
-		this.price = price;
-		this.qtd = qtd;
-	}
-	
 	public long getIdItem() {
 		return idItem;
 	}
@@ -55,20 +52,20 @@ public class Item {
 		this.idItem = idItem;
 	}
 
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
 	public Order getOrder() {
 		return order;
 	}
 
 	public void setOrder(Order order) {
 		this.order = order;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	public double getPrice() {
@@ -85,5 +82,5 @@ public class Item {
 
 	public void setQtd(int qtd) {
 		this.qtd = qtd;
-	}	
+	}
 }

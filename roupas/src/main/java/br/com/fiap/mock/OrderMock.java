@@ -15,7 +15,8 @@ import br.com.fiap.service.OrderService;
 import br.com.fiap.service.ProductService;
 
 public class OrderMock {
-public static void populateOrder(OrderService orderService, CustomerService customerService, ProductService productService) {
+
+	public static void populateOrder(OrderService orderService, CustomerService customerService, ProductService productService) {
 		
 		
 		try {
@@ -23,21 +24,21 @@ public static void populateOrder(OrderService orderService, CustomerService cust
 
 			for (Customer customer : customers) {
 				Order order = new Order();
-				order.setData(diadacompra());				
+				order.setOrderdate(diadacompra());				
 				order.setCustomer(customer);
 				
 				List<Item> items = new ArrayList<Item>();
 				int qtyItems = ran(4);
 				
 				Product product = new Product();
-				product = productService.findById(ran(1000));
+				product = productService.findById(ran(100));
 				
 				for(int i=0; i<qtyItems;i++) {
-					items.add(new Item(0L, product, order, product.getPrice(), ran(3)));
+					items.add(new Item(0L, order, product, product.getPrice(), ran(3)));
 				}				
 				order.setItems(items);
 				
-				orderService.createOrder(order);
+				orderService.newOrder(order);
 			}
 
 		} catch (Exception e) {
@@ -58,5 +59,6 @@ public static void populateOrder(OrderService orderService, CustomerService cust
 		LocalDate randomDate = LocalDate.ofEpochDay(randomDay);
 		return randomDate;
 	}
+
 
 }

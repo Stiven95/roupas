@@ -1,5 +1,6 @@
 package br.com.fiap.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,46 +18,40 @@ import javax.persistence.OneToMany;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-public class Order {
+public class Order implements Serializable {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long idOrder;
+	private static final long serialVersionUID = 1L;
+
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long idorder;
 	
-	@ManyToOne @JoinColumn(name="idCustomer")
+	@ManyToOne @JoinColumn(name="idcustomer")
 	private Customer customer;
 	
 	@OneToMany(mappedBy="order", cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
 	private List<Item> items = new ArrayList<Item>();
 	
 	@DateTimeFormat
-	private LocalDate data;
+	private LocalDate orderdate;
 
 	public Order() {
 		super();
 	}
 
-	public Order(Customer customer, List<Item> items, LocalDate data) {
+	public Order(long idorder, Customer customer, List<Item> items, LocalDate orderdate) {
 		super();
+		this.idorder = idorder;
 		this.customer = customer;
 		this.items = items;
-		this.data = data;
+		this.orderdate = orderdate;
 	}
 
-	public Order(long idOrder, Customer customer, List<br.com.fiap.entity.Item> items, LocalDate data) {
-		super();
-		this.idOrder = idOrder;
-		this.customer = customer;
-		this.items = items;
-		this.data = data;
+	public long getIdorder() {
+		return idorder;
 	}
 
-	public long getIdOrder() {
-		return idOrder;
-	}
-
-	public void setIdOrder(long idOrder) {
-		this.idOrder = idOrder;
+	public void setIdorder(long idorder) {
+		this.idorder = idorder;
 	}
 
 	public Customer getCustomer() {
@@ -75,11 +70,12 @@ public class Order {
 		this.items = items;
 	}
 
-	public LocalDate getData() {
-		return data;
+	public LocalDate getOrderdate() {
+		return orderdate;
 	}
 
-	public void setData(LocalDate data) {
-		this.data = data;
-	}
+	public void setOrderdate(LocalDate orderdate) {
+		this.orderdate = orderdate;
+	}	
+	
 }

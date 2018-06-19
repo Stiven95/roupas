@@ -17,7 +17,7 @@ public class ProductMock {
 	public static void populateProduct(ProductService productService) {
 		try {
 
-			for (int i = 0; i < 1000; i++) {
+			for (int i = 0; i < 100; i++) {
 
 				Product product = new Product();
 				product.setDescription(

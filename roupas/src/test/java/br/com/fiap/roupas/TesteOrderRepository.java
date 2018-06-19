@@ -20,33 +20,5 @@ import br.com.fiap.repository.OrderRepository;
 @DataJpaTest
 public class TesteOrderRepository {
 
-	@Autowired
-	private TestEntityManager entityManager;
-	
-	@Autowired
-	private OrderRepository orderRepository;
-	
-	@Test
-	public void crudOrder() {
-
-		Customer customer = new Customer("Stiven Oliveira Bezerra", "111.222.333.444-00");
-		Order order = new Order(customer, new ArrayList<>(),LocalDate.now());
-		
-		Assert.assertTrue(((List<Order>) orderRepository.findAll()).isEmpty());
-		
-		orderRepository.save(order);
-		List<Order> customers = (List<Order>) orderRepository.findAll();
-		Assert.assertFalse(customers.isEmpty());
-		Assert.assertEquals(1, customers.size());
-		
-		order.setCustomer(new Customer("Stiven Oliveira", "111.222.333.444-10"));
-		entityManager.merge(order);
-		Order orderR = orderRepository.findById(1L);
-		Assert.assertEquals("Evair Sousa", orderR.getCustomer());
-		
-		orderRepository.delete(order);
-		List<Order> deletados = (List<Order>) orderRepository.findAll();
-		Assert.assertTrue(deletados.isEmpty());
-	}
 	
 }
