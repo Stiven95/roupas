@@ -14,10 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-@Entity
+@Entity @Table(name="Orders")
 public class Order implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -25,7 +26,7 @@ public class Order implements Serializable {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long idorder;
 	
-	@ManyToOne @JoinColumn(name="idcustomer")
+	@ManyToOne @JoinColumn(name="idCustomer")
 	private Customer customer;
 	
 	@OneToMany(mappedBy="order", cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
